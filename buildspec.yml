@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      golang: latest
+  pre_build:
+    commands:
+      - echo Installing Go dependencies
+      - go get ./...
+  build:
+    commands:
+      - echo Build started on `date`
+      - GOOS=linux go build -o libmygo.so -buildmode=c-shared mygolib.go
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - libmygo.so
